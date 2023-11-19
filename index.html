@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Verification</title>
+</head>
+<body>
+    <h1>...جارى التحقق من البلد</h1>
+    <p id="result"></p>
+
+    <script>
+        function getQueryParam(paramName) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(paramName);
+        }
+
+        const id = getQueryParam('id');
+        const guild = getQueryParam('guild');
+        
+        if (id && guild) {
+        // Send a GET request to the external server
+        fetch(`https://toofanmisr.xyz/verify?id=${id}&guild=${guild}`)
+            .then(response => {
+                if (response.status === 200) {
+                    document.getElementById('result').textContent = '✅ تم التحقق بنجاح';
+                } else {
+                    document.getElementById('result').textContent = '❌ فشل فى التحقق';
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                document.getElementById('result').textContent = '❌ فشل فى التحقق';
+            });
+        }
+        
+
+    </script>
+</body>
+</html>
